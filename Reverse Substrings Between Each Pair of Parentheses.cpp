@@ -30,6 +30,40 @@ public:
     }
 };
 
+//Code-2
+//T.C : O(n)
+//S.C : O(n)
+class Solution {
+public:
+    string reverseParentheses(string s) {
+        int n=s.size();
+        stack<int>st;
+        vector<int>mp(n,0);
+        for(int i=0;i<s.size();i++){
+            if(s[i]=='(')
+                st.push(i);
+            else if(s[i]==')'){
+                int x=st.top();
+                st.pop();
+                mp[x]=i;
+                mp[i]=x;
+            }
+        }
+        
+        string str;
+        int d=1;
+        for(int i=0;i<s.size();i+=d){
+            if(s[i]=='(' || s[i]==')'){
+                i=mp[i];
+                d=d*-1;
+            }
+            else
+                str.push_back(s[i]);
+        }
+        return str;
+    }
+};
+
 /*
     You are given a string s that consists of lower case English letters and brackets. 
     Reverse the strings in each pair of matching parentheses, starting from the innermost one.
